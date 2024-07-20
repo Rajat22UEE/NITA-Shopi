@@ -6,6 +6,7 @@ import OldProduct from './pages/OldProduct';
 import NewProduct from './pages/NewProduct';
 import AutoService from './pages/AutoService';
 import RestaurantService from './pages/RestaurantService';
+import ItemRestaurant from './pages/ItemRestaurant';
 import About from './pages/About';
 import Help from './pages/Help';
 import SignUp from './pages/SignUp';
@@ -15,25 +16,27 @@ const App = () => {
   return (
     <Router>
       <Header />
-      
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/OldProduct" element={<OldProduct />} />
-          <Route path="/NewProduct" element={<NewProduct />} />
-          <Route path="/AutoService" element={<AutoService />} />
-          <Route path="/RestaurantService" element={<RestaurantService />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Help" element={<Help />} />
-          <Route path="/SignUp" element={<SignUp/>} />
-          <Route path="/Login" element={<Login/>} />
-        </Routes>
-       <br />
-       <br />
-       <Footer /> 
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/OldProduct" element={<OldProduct />} />
+        <Route path="/NewProduct" element={<NewProduct />} />
+        <Route path="/AutoService" element={<AutoService />} />
+        <Route path="/RestaurantService" element={<RestaurantService />} />
+             <Route path="/" element={<RestaurantService />} />
+             <Route path="/restaurant/:id" element={<ItemRestaurant />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Help" element={<Help />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+    
+      <br />
+      <br />
+      <Footer />
     </Router>
   );
 };
 
 export default App;
-
