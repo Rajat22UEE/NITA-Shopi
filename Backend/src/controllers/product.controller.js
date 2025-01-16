@@ -351,6 +351,7 @@ const getAllProduct=async(req,res)=>{
     const pageSkip = (parseInt(page, 10) - 1) * parsedLimit;
     const sortStage = {};
     sortStage["updatedAt"] = "asc" ? 1 : -1;
+    
   
     const products = await Product.aggregate([
       {
