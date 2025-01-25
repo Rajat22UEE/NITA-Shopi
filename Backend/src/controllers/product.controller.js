@@ -15,13 +15,13 @@ const addProduct = async (req, res) => {
         });
     }
 
-    const { name, price, description, quantity,catagory } = req.body;
+    const { name, price, description, quantity,category } = req.body;
 
-    if (!name || !price || !description || !quantity||!catagory) {
+    if (!name || !price || !description || !quantity||!category) {
       return res
         .status(401)
         .json({
-          message: "name,price,description,quantity,catagory of the product is required",
+          message: "name,price,description,quantity,category of the product is required",
         });
     }
 
@@ -38,7 +38,7 @@ const addProduct = async (req, res) => {
         { description },
         { quantity },
         { owner: req.user._id },
-        {catagory}
+        {category}
       ],
     });
 
@@ -67,7 +67,7 @@ const addProduct = async (req, res) => {
       quantity,
       image: productImageUploadResponse?.secure_url,
       owner: req.user._id,
-      catagory
+      category
     });
 
     if (!product) {
@@ -125,7 +125,7 @@ const getUserProduct = async (req, res) => {
           description: 1,
           quantity: 1,
           image: 1,
-          catagory:1
+          category:1
         },
       },
     ]);
@@ -219,7 +219,7 @@ const updateProductInfo=async(req,res)=>{
       return res.status(401).json({message:"you are not the owner of the product."});
     }
 
-    const {name,description,quantity,price,catagory}=req.body;
+    const {name,description,quantity,price,category}=req.body;
 
     if(name){
       product.name=name;
@@ -233,8 +233,8 @@ const updateProductInfo=async(req,res)=>{
     if(price){
       product.price=price;
     }
-    if(catagory){
-      product.catagory=catagory;
+    if(category){
+      product.category=category;
     }
 
     await product.save({validateBeforeSave:false});
@@ -346,7 +346,7 @@ const viewProduct=async(req,res)=>{
 }
 
 const getAllProduct=async(req,res)=>{
-    const { page = 1, limit = 1 } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const parsedLimit = parseInt(limit, 10);
     const pageSkip = (parseInt(page, 10) - 1) * parsedLimit;
     const sortStage = {};
@@ -361,7 +361,8 @@ const getAllProduct=async(req,res)=>{
           name: 1,
           price: 1,
           image: 1,
-          catagory:1
+          category:1,
+          
         },
       },
       {
@@ -398,14 +399,14 @@ const getOldProduct=async(req,res)=>{
   const products = await Product.aggregate([
     {
       $match: {
-        catagory:'old'
+        category:'old'
       },
     },
     {
       $project: {
         name: 1,
         price: 1,
-        image: 1,
+        productImage: 1,
       },
     },
     {
@@ -442,7 +443,7 @@ const getNewProduct=async(req,res)=>{
   const products = await Product.aggregate([
     {
       $match: {
-        catagory:'new'
+        category:'new'
       },
     },
     {

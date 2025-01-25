@@ -2,13 +2,17 @@ import { useState } from "react";
 import { MdEmail } from "react-icons/md";
 import { IoPerson } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
+import axios from 'axios'
+import { BrowserRouter as Router, Route, Link,useNavigate } from "react-router-dom"; 
 
 function App() {
+  const navigate=useNavigate()
+
   const [formData, setFormData] = useState({
-    name: '',
+    fullname: '',
     email: '',
     password: '',
+    phonenumber:''
   });
 
   const handleChange = (e) => {
@@ -19,20 +23,36 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log('Form data:', formData);
-  
-    // Check if formData contains values
-    if (Object.values(formData).every(value => value !== '')) {
-      if(formData.password!=formData.confirmPassword)
+
+    console.log("Form data being sent:", formData);
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8000/api/v1/users/register",
         {
-          alert('Please Enter The Password Correctly!!');
+          fullname:formData.name,
+          email: formData.email,
+          phonenumber:formData.phonenumber,
+          password: formData.password,
+        },
+        {
+          withCredentials: true,
         }
-      alert('Account Created Successfully');
-    } else {
-      alert('Please fill in all fields.');
+      );
+
+      if (data) {
+        console.log("User Registered Successful:", data);
+        alert("User Registered successfully!");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error(
+        "Registration Error:",
+        error.response?.data?.message || error.message
+      );
+      alert("Regsitration failed: " + (error.response?.data?.message || error.message));
     }
   };
   
@@ -74,6 +94,20 @@ function App() {
               />
             </div>
           </div>
+           {/* Phone Number Input */}
+           <div className="flex flex-col justify-center mt-4 w-full">
+            <div className="flex flex-row items-center w-full mt-2">
+              <FaLock size={40} className="mr-2" />
+              <input
+                type="text"
+                name="phonenumber"
+                value={formData.phonenumber}
+                onChange={handleChange}
+                className="p-2 border border-gray-400 flex-grow"
+                placeholder="Enter your Phone Number"
+              />
+            </div>
+          </div>
           {/* Password Input */}
           <div className="flex flex-col justify-center mt-4 w-full">
             <div className="flex flex-row items-center w-full mt-2">
@@ -88,20 +122,7 @@ function App() {
               />
             </div>
           </div>
-          {/* Confirm Password Input */}
-          <div className="flex flex-col justify-center mt-4 w-full">
-            <div className="flex flex-row items-center w-full mt-2">
-              <FaLock size={40} className="mr-2" />
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className="p-2 border border-gray-400 flex-grow"
-                placeholder="Re-Enter the Password"
-              />
-            </div>
-          </div>
+         
           {/* Sign-Up Button */}
           <div className="flex items-start justify-center border-4 bg-blue-600 w-full p-2 my-5 hover:bg-blue-700">
             <button type="submit" className="text-3xl font-bold text-center text-black hover:text-white py-2 px-4 ">

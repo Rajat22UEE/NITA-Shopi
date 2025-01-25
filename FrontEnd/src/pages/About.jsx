@@ -90,32 +90,40 @@ const AboutUs = [
 const teamMembers = [
     {
         name: "Sudip Karmakar",
-        role: "Founder",
+        role: "Founder-FullStack ",
         image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         linkedin: "https://www.linkedin.com/in/sudip-karmakar-675629249/",
         github: "https://github.com/Sudipkarmakar25"
     },
     {
+        name: "Amit Chowdhury",
+        role: "Founder-Backend Lead",
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        linkedin: "https://www.linkedin.com/in/samiran-chakraborty247/",
+        github: "https://github.com/sudipkarmakar"
+    },
+    {
         name: "RAJAT DEBNATH",
-        role: "Founder",
+        role: "Founder-Frontend Lead(UI/UX)",
         image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         linkedin: "https://www.linkedin.com/in/rajat-debnath/",
         github: "https://github.com/Rajat22UEE"
     },
     {
         name: "Ratnadip Das",
-        role: "Founder",
+        role: "Founder-Management Team",
         image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         linkedin: "https://www.linkedin.com/in/ratnadip-das-321659258/",
         github: "https://github.com/sudipkarmakar"
     },
     {
         name: "Samiran Chakraborty",
-        role: "Founder",
+        role: "Founder - Management Team",
         image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         linkedin: "https://www.linkedin.com/in/samiran-chakraborty247/",
         github: "https://github.com/sudipkarmakar"
-    }
+    },
+   
 ];
 
 export default About;

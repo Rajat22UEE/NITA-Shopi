@@ -26,7 +26,7 @@ const productSchema=new mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref:"User"
     },
-    catagory:{
+    category:{
         type:String,
         required:true,
         lowercase:true

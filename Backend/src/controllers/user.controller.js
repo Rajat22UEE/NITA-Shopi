@@ -65,13 +65,13 @@ const loginUser  = async (req, res) => {
     // Get logged-in user's details excluding the password
     const loggedInUser  = await User.findById(user._id).select("-password");
 
-    // Set cookie options
     const options = {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // True in production
-      sameSite: "None",// Adjust for local testing
+      httpOnly: true,          // Prevents access to the cookie via JavaScript
+      secure: false,           // Allow cookies over HTTP for local development
+      sameSite: "Lax",         // Allows cookies for same-site requests
       maxAge: 24 * 60 * 60 * 1000, // Cookie valid for 1 day
     };
+    
 
     console.log("Generated Token:", token);
     console.log("Cookie Options:", options);

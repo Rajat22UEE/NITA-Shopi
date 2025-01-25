@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Card from '../Components/Card';
+import { Link } from 'react-router-dom'
+
 
 const NewProduct = () => {
   const [count, setCount] = useState(0);
@@ -10,11 +11,15 @@ const NewProduct = () => {
   async function fetchProducts() {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/product/getAllProduct?page=1`
-      );
+        `http://localhost:8000/api/v1/product/getAllProduct`,{
+          method: "GET",
+          credentials: "include",
+        });
+        
+       
       const result = await response.json(); 
       console.log(result); 
-      setProducts(result); 
+      setProducts(result.data); 
     } catch (error) {
       console.log('Error fetching products:', error);
     }
@@ -26,15 +31,16 @@ const NewProduct = () => {
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-6">
-      {/* {products.map((product) => (
+       {products.map((product) => (
         <Card
           key={product.id}
           product_name={product.name}
           product_price={product.price}
           product_Owner="Default Owner" 
-          product_image={`https://th.bing.com/th/id/R.2436bfd57f8da9d3352be6d9c69f7d0d?rik=9ZCsDkOmNhWhyQ&riu=http%3a%2f%2fwallpaperheart.com%2fwp-content%2fuploads%2f2018%2f04%2fbest-scenery-wallpaper-scenery-images.jpg&ehk=QhEgBXlBIdu4NBBKeTvxOQncAMHrLokkC8ustgaeB9c%3d&risl=&pid=ImgRaw&r=0`} 
+          product_image={product.image} 
+          product_quantity={product.quantity} 
         />
-      ))} */}
+      ))} 
 
       <div className="w-full flex justify-around mt-6">
         
@@ -49,8 +55,9 @@ const NewProduct = () => {
           Next
         </button>:null
         }
-
-        
+        <Link to="/AddProduct">
+        <button>Add Product</button>
+        </Link>
       </div>
     </div>
   );

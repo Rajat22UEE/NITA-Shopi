@@ -11,6 +11,7 @@ import Help from './pages/Help';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
+import AddProduct from './Components/AddProduct';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/Login" element={<Login/>} />
           <Route path="/ForgotPassword" element={<ForgotPassword/>} />
+          <Route path="/AddProduct" element={<AddProduct/>} />
         </Routes>
        <br />
        <br />
