@@ -351,19 +351,47 @@ const getAllProduct=async(req,res)=>{
     const pageSkip = (parseInt(page, 10) - 1) * parsedLimit;
     const sortStage = {};
     sortStage["updatedAt"] = "asc" ? 1 : -1;
+    
   
     const products = await Product.aggregate([
       {
         $match: { quantity: { $gt: 0 } },
       },
       {
-        $project: {
-          name: 1,
-          price: 1,
-          image: 1,
-          category:1,
-          
-        },
+
+        $lookup:{
+          from:"users",
+          localField:"owner",
+          foreignField:"_id",
+          as:"owner",
+          pipeline:[
+            {
+              $project:{
+                fullname:1,
+                email:1,
+                phonenumber:1,
+              }
+            }
+          ]
+        }
+      },
+      {
+        $addFields:{
+          owner:{
+            $first:"$owner"
+          }
+        }
+      },
+      {
+        $project:{
+          name:1,
+          price:1,
+          owner:1,
+          description:1,
+          image:1,
+          quantity:1,
+          catagory:1
+        }
       },
       {
         $sort: sortStage,
