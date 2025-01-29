@@ -2,6 +2,7 @@ import React from "react";
 import RestaurantTypeCard from "../Components/RestaurantTypeCard";
 
 const RestaurantService = () => {
+
   const type = [
     {
       title: "South Indian Dishes",
@@ -78,55 +79,140 @@ const RestaurantService = () => {
         Restaurants
       </h2>
 
+      <div className="flex flex-row justify-center gap-4">
+        <button className="bg-green-500 text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg">
+          All
+        </button>
+        <button className="bg-green-500 text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg">
+          Restaurants
+        </button>
+        <button className="bg-green-500 text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg">
+          Tiffin
+        </button>
+        <button className="bg-green-500 text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg">
+          Miscellaneous
+        </button>
+      </div>
+
       {/* //Khakchawng */}
 
-      <div className="h-[350px] border-2 border-black mx-5 flex flex-row justify-between p-4 rounded-xl shadow-lg hover:shadow-2xl transition-shadow">
+      <div className="h-[400px] w-full max-w-4xl border-2 border-gray-200 mx-auto flex flex-row justify-between p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white my-11">
         {/* Image Section */}
-        <div className="flex justify-center items-center mx-5 rounded-xl overflow-hidden">
+        <div className="flex justify-center items-center w-1/3 rounded-xl overflow-hidden">
           <img
             src="https://th.bing.com/th/id/OIP.Mt8p1g9AkRUyK8RMqNhCsAHaEJ?rs=1&pid=ImgDetMain"
-            className="rounded-xl object-cover w-[200px] h-[200px]"
+            className="rounded-xl object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
             alt="Khakchawng Restaurant"
           />
         </div>
 
         {/* Restaurant Information */}
-        <div className="flex flex-col justify-center mx-5 text-center">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+        <div className="flex flex-col justify-center w-1/3 px-6 text-left">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
             Khakchawng Restaurant
           </h2>
-          <h3 className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm text-gray-600 leading-relaxed">
             Khakchawng Restaurant offers a variety of delicious dishes with a
             cozy atmosphere. Experience amazing food and exceptional service at
             affordable prices.
-          </h3>
+          </p>
         </div>
 
         {/* Contact & Button Section */}
-        <div className="flex flex-col justify-center items-center mx-5 space-y-4">
-          <div>
-            <h1 className="font-semibold text-xl text-gray-800">
+        <div className="flex flex-col justify-center items-center w-1/3 space-y-6">
+          <div className="text-center">
+            <h1 className="font-semibold text-xl text-gray-800 mb-2">
               Contact Details
             </h1>
             <h2 className="text-lg text-green-700">
-              Phone Number: <span className="text-gray-600">999999909</span>
+              Location: <span className="text-gray-600">Shopping</span>
+            </h2>
+            <h2 className="text-lg text-green-700">
+              Phone: <span className="text-gray-600">999999909</span>
             </h2>
           </div>
-          <button className="bg-green-800 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition-colors">
+          <button className="bg-green-800 text-white py-3 px-8 rounded-lg hover:bg-green-700 transition-colors duration-300 shadow-md hover:shadow-lg">
             Home Delivery Available
           </button>
         </div>
 
         {/* Download Menu */}
-        <div className="flex justify-end items-center text-sm text-blue-500 hover:underline cursor-pointer">
-          Download Menu
+        <div className="absolute bottom-6 right-6">
+          <div className="flex items-center text-sm text-blue-500 hover:text-blue-600 cursor-pointer transition-colors duration-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Download Menu
+          </div>
         </div>
       </div>
-
-
+      <br />
       {/* Mj restaurent */}
+      <div className="h-[400px] w-full max-w-4xl border-2 border-gray-200 mx-auto flex flex-row justify-between p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white">
+        {/* Image Section */}
+        <div className="flex justify-center items-center w-1/3 rounded-xl overflow-hidden">
+          <img
+            src="https://th.bing.com/th/id/OIP.Mt8p1g9AkRUyK8RMqNhCsAHaEJ?rs=1&pid=ImgDetMain"
+            className="rounded-xl object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
+            alt="Khakchawng Restaurant"
+          />
+        </div>
 
-      
+        {/* Restaurant Information */}
+        <div className="flex flex-col justify-center w-1/3 px-6 text-left">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            MJ Restaurant
+          </h2>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            Mj restaurants special for our chicken items enjoy the birthday
+            party of your loved one with the delicious chicken items from our
+            Restaurant.
+          </p>
+        </div>
+
+        {/* Contact & Button Section */}
+        <div className="flex flex-col justify-center items-center w-1/3 space-y-6">
+          <div className="text-center">
+            <h1 className="font-semibold text-xl text-gray-800 mb-2">
+              Contact Details
+            </h1>
+            <h2 className="text-lg text-green-700">
+              Phone: <span className="text-gray-600">999999909</span>
+            </h2>
+          </div>
+          <button className="bg-red-500 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md hover:shadow-lg">
+            Home Delivery Not Available
+          </button>
+        </div>
+
+        {/* Download Menu */}
+        <div className="absolute bottom-6 right-6">
+          <div className="flex items-center text-sm text-blue-500 hover:text-blue-600 cursor-pointer transition-colors duration-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Download Menu
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
