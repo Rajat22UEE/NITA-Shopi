@@ -1,16 +1,19 @@
 import { User } from "../models/user.model.js";
-import bcrypt from "bcryptjs"; 
+import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const registerUser = async (req, res) => {
   try {
-    const { fullname, email, password,phonenumber } = req.body;
+    const { fullname, email, password, phonenumber } = req.body;
 
-  
     if (!fullname || !email || !password || !phonenumber) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-  
     const existedUser = await User.findOne({ email });
     if (existedUser) {
       return res.status(400).json({ message: "User already exists" });
@@ -20,7 +23,7 @@ const registerUser = async (req, res) => {
       fullname,
       email,
       password: hashedPassword,
-      phonenumber
+      phonenumber,
     });
 
     const createdUser = await User.findById(user._id).select("-password");
@@ -34,11 +37,13 @@ const registerUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message || error);
-    return res.status(500).json({ message: "Server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
   }
 };
 
-const loginUser  = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -63,36 +68,33 @@ const loginUser  = async (req, res) => {
     const token = await user.generateaccesstoken();
 
     // Get logged-in user's details excluding the password
-    const loggedInUser  = await User.findById(user._id).select("-password");
+    const loggedInUser = await User.findById(user._id).select("-password");
 
     const options = {
-      httpOnly: true,          // Prevents access to the cookie via JavaScript
-      secure: false,           // Allow cookies over HTTP for local development
-      sameSite: "Lax",         // Allows cookies for same-site requests
+      httpOnly: true, // Prevents access to the cookie via JavaScript
+      secure: false, // Allow cookies over HTTP for local development
+      sameSite: "Lax", // Allows cookies for same-site requests
       maxAge: 24 * 60 * 60 * 1000, // Cookie valid for 1 day
     };
-    
 
     console.log("Generated Token:", token);
     console.log("Cookie Options:", options);
 
     // Send response
-    return res
-      .status(200)
-      .cookie("accessToken", token, options)
-      .json({
-        user: loggedInUser ,
-        accessToken: token,
-        message: "User  Loggede  In successfully",
-      });
+    return res.status(200).cookie("accessToken", token, options).json({
+      user: loggedInUser,
+      accessToken: token,
+      message: "User  Loggede  In successfully",
+    });
   } catch (error) {
     console.error("Login Error:", error.message);
-    return res.status(500).json({ message: "Server error. Please try again later." });
+    return res
+      .status(500)
+      .json({ message: "Server error. Please try again later." });
   }
 };
 
-
- const logoutUser = async (req, res) => {
+const logoutUser = async (req, res) => {
   try {
     const token =
       req.cookies?.accessToken ||
@@ -127,39 +129,82 @@ const loginUser  = async (req, res) => {
   }
 };
 
- const forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const { email } = req.body;
 
-    // Validate input
-    if (!email || !newPassword) {
-      return res.status(400).json({ message: "Email and new password are required" });
-    }
+    if (!email) return res.status(400).json({ message: "Email is required" });
 
-    // Find the user by email
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: "User with this email does not exist" });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+ 
+    const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "15m",
+    });
+
+    
+    const resetLink = `http://localhost:5173/resetPassword/${token}`;
+
+    
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Reset Your Password",
+      html: `
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetLink}" style="background: blue; color: white; padding: 10px; text-decoration: none; border-radius: 5px;">
+          Reset Password
+        </a>
+        <p>This link will expire in 15 minutes.</p>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ message: "Password reset link sent to your email" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token } = req.params; 
+    const { password } = req.body;
+
+    if (!token) return res.status(400).json({ message: "Token is required" });
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    } catch (error) {
+      return res.status(400).json({ message: "Invalid or expired token" });
     }
 
-    // Hash the new password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    const user = await User.findById(decoded.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Update the user's password in the database
+    const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
     await user.save();
 
-    return res.status(200).json({ message: "Password updated successfully" });
+    res.json({ message: "Password has been reset successfully" });
+
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
 
-export { registerUser,
-  loginUser ,
-  logoutUser,
-  forgotPassword
- };
+export { registerUser, loginUser, logoutUser, forgotPassword,resetPassword };

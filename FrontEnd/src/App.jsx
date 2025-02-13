@@ -11,13 +11,13 @@ import Help from './pages/Help';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import AddProduct from './Components/AddProduct';
 
 const App = () => {
   return (
     <Router>
       <Header />
-      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
@@ -27,17 +27,15 @@ const App = () => {
           <Route path="/RestaurantService" element={<RestaurantService />} />
           <Route path="/About" element={<About />} />
           <Route path="/Help" element={<Help />} />
-          <Route path="/SignUp" element={<SignUp/>} />
-          <Route path="/Login" element={<Login/>} />
-          <Route path="/ForgotPassword" element={<ForgotPassword/>} />
-          <Route path="/AddProduct" element={<AddProduct/>} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/resetPassword/:token" element={<ResetPassword />} />
+          <Route path="/AddProduct" element={<AddProduct />} />
         </Routes>
-       <br />
-       <br />
-       <Footer /> 
+      <Footer />
     </Router>
   );
 };
 
 export default App;
-
