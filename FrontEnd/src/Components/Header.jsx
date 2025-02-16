@@ -65,7 +65,7 @@ const Header = () => {
   return (
     <>
       <div className="sticky top-0 z-50">
-        <div className="h-16 border border-black flex justify-between items-center px-4 md:px-16 bg-[#3BEA1E] rounded-b-xl">
+        <div className="h-16 border border-black flex justify-between items-center px-4 md:px-16 bg-[#3BEA1E] rounded-b-xl ">
           <div>
             <h1 className="text-xl md:text-2xl font-bold">LOGO NAME</h1>
           </div>
@@ -100,6 +100,9 @@ const Header = () => {
                 </div>
               )}
             </div>
+            <Link to="/AddProduct" onClick={handleNavbarItemClick} className="hover:underline underline-offset-8 hover:text-blue-600 text-black text-2xl">
+              Add Product
+            </Link>
             <Link to="/About" onClick={handleNavbarItemClick} className="hover:underline underline-offset-8 hover:text-blue-600 text-black text-2xl">
               About us
             </Link>

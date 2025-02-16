@@ -50,7 +50,11 @@ function App() {
       alert("Login failed: " + (error.response?.data?.message || error.message));
     }
   };
+  const [count, setCount] = useState(0);
 
+  const refreshPage = () => {
+    setCount(count + 1); // This will cause a re-render of the component
+  };
   return (
     <div className="h-screen w-screen flex justify-center items-center bg-gray-200">
       <div className="h-[600px] w-[500px] flex flex-col justify-start items-center border-4 border-black bg-blue-100 p-4 rounded-lg">
@@ -102,9 +106,11 @@ function App() {
               <button
                 type="submit"
                 className="text-3xl font-bold text-center text-white"
+                
               >
                 Log In
               </button>
+
             </div>
           </form>
 
