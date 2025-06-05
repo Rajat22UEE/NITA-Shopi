@@ -69,12 +69,13 @@ const loginUser = async (req, res) => {
     
     const loggedInUser = await User.findById(user._id).select("-password");
 
-    const options = {
-      httpOnly: true, 
-      secure: false, 
-      sameSite: "Lax",
-      maxAge: 24 * 60 * 60 * 1000, 
-    };
+res.cookie("accessToken", token, {
+  httpOnly: true,
+  secure: true,        
+  sameSite: "None",    
+  maxAge: 86400000,    
+});
+
 
     console.log("Generated Token:", token);
     console.log("Cookie Options:", options);
