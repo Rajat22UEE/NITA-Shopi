@@ -29,7 +29,7 @@ function ResetPassword() {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/users/resetPassword/${token}`, 
+        `https://nita-shopi-backend-jo5u.onrender.com/api/v1/users/resetPassword/${token}`, 
         { password: formData.password } // ✅ Send password in body
       );
 

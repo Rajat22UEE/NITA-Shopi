@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/v1/users/userLoggedIn", {
+        const response = await fetch("https://nita-shopi-backend-jo5u.onrender.com/api/v1/users/userLoggedIn", {
           method: 'GET',
           credentials: 'include',
         });

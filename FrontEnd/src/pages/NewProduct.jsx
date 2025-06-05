@@ -11,7 +11,7 @@ const NewProduct = () => {
   async function fetchProducts() {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/product/getNewProduct`,{
+        `https://nita-shopi-backend-jo5u.onrender.com/api/v1/product/getNewProduct`,{
           method: "GET",
           credentials: "include",
         });

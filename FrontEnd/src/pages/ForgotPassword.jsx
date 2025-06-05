@@ -13,7 +13,7 @@ function ForgotPassword() {
     setLoading(true);
 
     try {
-      const res = await axios.put("http://localhost:8000/api/v1/users/forgotPassword", { email });
+      const res = await axios.put("https://nita-shopi-backend-jo5u.onrender.com/forgotPassword", { email });
       setMessage(res.data.message || "Check your email for the reset link!");
     } catch (error) {
       setMessage(error.response?.data?.message || "Failed to send reset link");

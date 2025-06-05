@@ -207,31 +207,34 @@ const resetPassword = async (req, res) => {
 
 const userLoggedInController = async (req, res) => {
   try {
-    const token = req.cookies.accessToken;
+  
+    const token =
+      req.cookies?.accessToken ||
+      req.headers.authorization?.replace("Bearer ", "");
 
     if (!token) {
+      console.log("No token provided");
       return res.status(200).json({ isLoggedIn: false });
     }
 
+   
     let decoded;
     try {
       decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     } catch (error) {
-      console.log("user is not logged in 1")
+      console.log("Token verification failed:", error.message);
       return res.status(200).json({ isLoggedIn: false });
     }
-
     const user = await User.findById(decoded._id).select("-password");
     if (!user) {
-      console.log("user is not logged in 1")
+      console.log("User not found");
       return res.status(200).json({ isLoggedIn: false });
     }
-    console.log("user is logged in ")
-    res.status(200).json({ isLoggedIn: true, user });
-
+    console.log("User is logged in:", user.email);
+    return res.status(200).json({ isLoggedIn: true, user });
   } catch (error) {
-    console.error("Error:", error.message);
-    res.status(500).json({ message: "Internal server error", isLoggedIn: false });
+    console.error("Unexpected error in userLoggedInController:", error.message);
+    return res.status(500).json({ message: "Internal server error", isLoggedIn: false });
   }
 };
 
