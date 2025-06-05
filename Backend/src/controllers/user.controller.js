@@ -78,10 +78,10 @@ res.cookie("accessToken", token, {
 
 
     console.log("Generated Token:", token);
-    console.log("Cookie Options:", options);
+
 
    
-    return res.status(200).cookie("accessToken", token, options).json({
+    return res.status(200).cookie("accessToken", token).json({
       user: loggedInUser,
       accessToken: token,
       message: "User  Loggede  In successfully",
