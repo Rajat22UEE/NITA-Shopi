@@ -19,7 +19,7 @@ function App() {
       [name]: value,
     });
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,6 +40,7 @@ function App() {
       if (data) {
         console.log("Login Successful:", data);
         alert("User Logged in successfully!");
+        window.location.reload();
         navigate("/Home"); // Navigate to the Home page
       }
     } catch (error) {

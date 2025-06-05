@@ -7,7 +7,7 @@ export default function AddProduct() {
     price: "",
     description: "",
     quantity: 1,
-    category: "",
+    catagory: "",
     productImage: null
   });
 
@@ -32,7 +32,7 @@ export default function AddProduct() {
     formDataToSend.append("price", formData.price);
     formDataToSend.append("description", formData.description);
     formDataToSend.append("quantity", formData.quantity);
-    formDataToSend.append("category", formData.category);
+    formDataToSend.append("catagory", formData.catagory);
     formDataToSend.append("productImage", formData.productImage);
   
     try {
@@ -54,7 +54,7 @@ export default function AddProduct() {
           price: "",
           description: "",
           quantity: 1,
-          category: "",
+          catagory: "",
           productImage: null,
         });
       }
@@ -108,8 +108,8 @@ export default function AddProduct() {
               </label>
               <input
                 type="text"
-                name="category"
-                value={formData.category}
+                name="catagory"
+                value={formData.catagory}
                 onChange={handleChange}
                 required
                 className="border border-gray-300 rounded-lg px-3 py-2 w-64 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"

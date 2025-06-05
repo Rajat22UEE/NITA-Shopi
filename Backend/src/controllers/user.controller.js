@@ -93,7 +93,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = async (req, res) => {
+const logoutUser  = async (req, res) => {
   try {
     const token =
       req.cookies?.accessToken ||
@@ -103,23 +103,28 @@ const logoutUser = async (req, res) => {
       return res.status(400).json({ message: "No access token provided" });
     }
 
-    // Find the user with this accessToken
-    const user = await User.findOneAndUpdate(
-      { accessToken: token }, // Match the user by the accessToken
-      { $unset: { accessToken: "" } }, // Remove the token
-      { new: true } // Return the updated user (optional)
-    );
-
-    if (!user) {
-      return res.status(404).json({ message: "Invalid access token" });
+   console.log(token)
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); 
+    } catch (err) {
+      return res.status(401).json({ message: "Invalid access token" });
     }
 
-    // Clear the cookie if tokens are stored in cookies
+    const user = await User.findById(decoded._id);
+    if (!user) {
+      return res.status(404).json({ message: "User  not found" });
+    }
+
+    // Clear the cookie
     res.clearCookie("accessToken", {
       httpOnly: true,
-      secure: true, // Set to true if using HTTPS
-      sameSite: "Strict", // Adjust based on your requirements
+      secure: true,
+      sameSite: "Lax",
     });
+
+    // Optionally, you can also remove the token from the user record if you store it
+    // await User.findByIdAndUpdate(decoded._id, { $unset: { accessToken: "" } });
 
     return res.status(200).json({ message: "Logout successful" });
   } catch (err) {

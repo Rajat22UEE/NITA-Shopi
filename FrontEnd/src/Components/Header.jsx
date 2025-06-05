@@ -1,8 +1,9 @@
-
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
-import { FaUser } from 'react-icons/fa';
+import { FaUser  } from 'react-icons/fa';
+import { useDispatch } from 'react-redux'; // Import useDispatch
+import { logout } from '../Store/Slice/userLoggedInSlice'; // Import the logout action
 
 const servicesDropdownLinks = [
   { to: "/OldProduct", label: "Old Product" },
@@ -14,10 +15,11 @@ const servicesDropdownLinks = [
 const profileDropdownLinks = [
   { to: "/Profile", label: "Profile" },
   { to: "/Settings", label: "Settings" },
-  { to: "/Logout", label: "Logout" }
+  { to: "/Logout", label: "Logout", action: true } 
 ];
 
 const Header = () => {
+  const dispatch = useDispatch(); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
@@ -46,7 +48,7 @@ const Header = () => {
   const handleMouseLeaveDropdown = () => {
     dropdownTimeout.current = setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 200); // Adjust the delay as needed
+    }, 200);
   };
 
   const handleMouseEnterProfileDropdown = () => {
@@ -59,7 +61,28 @@ const Header = () => {
   const handleMouseLeaveProfileDropdown = () => {
     profileDropdownTimeout.current = setTimeout(() => {
       setIsProfileDropdownOpen(false);
-    }, 200); // Adjust the delay as needed
+    }, 200);
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/users/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        alert('Logout successful');
+        dispatch(logout()); 
+      } else {
+        alert('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      alert('Logout failed');
+    }
   };
 
   return (
@@ -67,7 +90,7 @@ const Header = () => {
       <div className="sticky top-0 z-50">
         <div className="h-16 border border-black flex justify-between items-center px-4 md:px-16 bg-[#3BEA1E] rounded-b-xl ">
           <div>
-            <h1 className="text-xl md:text-2xl font-bold">LOGO NAME</h1>
+            <h1 className="text-xl md:text-2xl font-bold">CampusConnect</h1>
           </div>
 
           <div className="space-x-2 md:space-x-4 text-sm md:text-lg hidden md:flex">
@@ -112,19 +135,20 @@ const Header = () => {
               onMouseLeave={handleMouseLeaveProfileDropdown}
             >
               <button className="hover:underline underline-offset-8 hover:text-blue-600 flex text-black text-2xl pt-1">
-                <FaUser />
+                <FaUser  />
               </button>
               {isProfileDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-[#feeccd] border border-gray-200 rounded-lg shadow-lg z-10">
                   {profileDropdownLinks.map((link, index) => (
-                    <Link
-                      key={index}
-                      to={link.to}
-                      onClick={handleNavbarItemClick}
-                      className="block px-4 py-2 text-base hover:bg-[#3BEA1E] rounded-lg"
-                    >
-                      {link.label}
-                    </Link>
+                    <div key={index} onClick={link.action ? handleLogout : undefined}>
+                      <Link
+                        to={link.to}
+                        onClick={link.action ? undefined : handleNavbarItemClick} // Prevent navigation for logout
+                        className="block px-4 py-2 text-base hover:bg-[#3BEA1E] rounded-lg"
+                      >
+                        {link.label}
+                      </Link>
+                    </div>
                   ))}
                 </div>
               )}
@@ -180,19 +204,20 @@ const Header = () => {
                     onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                     className="text-xl hover:underline underline-offset-8 hover:text-blue-600 flex text-black w-full justify-center pt-1"
                   >
-                    <FaUser />
+                    <FaUser  />
                   </button>
                   {isProfileDropdownOpen && (
                     <div className="w-full bg-[#feeccd] border border-gray-200 rounded-lg shadow-xl mt-2">
                       {profileDropdownLinks.map((link, index) => (
-                        <Link
-                          key={index}
-                          to={link.to}
-                          onClick={handleNavbarItemClick}
-                          className="block px-4 py-2 text-base hover:bg-[#3BEA1E] rounded-lg"
-                        >
-                          {link.label}
-                        </Link>
+                        <div key={index} onClick={link.action ? handleLogout : undefined}>
+                          <Link
+                            to={link.to}
+                            onClick={link.action ? undefined : handleNavbarItemClick} // Prevent navigation for logout
+                            className="block px-4 py-2 text-base hover:bg-[#3BEA1E] rounded-lg"
+                          >
+                            {link.label}
+                          </Link>
+                        </div>
                       ))}
                     </div>
                   )}

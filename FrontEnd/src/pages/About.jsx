@@ -109,20 +109,7 @@ const teamMembers = [
         linkedin: "https://www.linkedin.com/in/rajat-debnath/",
         github: "https://github.com/Rajat22UEE"
     },
-    {
-        name: "Ratnadip Das",
-        role: "Founder-Management Team",
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        linkedin: "https://www.linkedin.com/in/ratnadip-das-321659258/",
-        github: "https://github.com/sudipkarmakar"
-    },
-    {
-        name: "Samiran Chakraborty",
-        role: "Founder - Management Team",
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        linkedin: "https://www.linkedin.com/in/samiran-chakraborty247/",
-        github: "https://github.com/sudipkarmakar"
-    },
+
    
 ];
 

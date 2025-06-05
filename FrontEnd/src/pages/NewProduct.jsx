@@ -11,7 +11,7 @@ const NewProduct = () => {
   async function fetchProducts() {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/v1/product/getAllProduct`,{
+        `http://localhost:8000/api/v1/product/getNewProduct`,{
           method: "GET",
           credentials: "include",
         });
@@ -55,9 +55,7 @@ const NewProduct = () => {
           Next
         </button>:null
         }
-        <Link to="/AddProduct">
-        <button>Add Product</button>
-        </Link>
+
       </div>
     </div>
   );
