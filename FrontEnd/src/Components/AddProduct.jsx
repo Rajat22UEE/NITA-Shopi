@@ -37,7 +37,7 @@ export default function AddProduct() {
   
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/product/addProduct",
+        "https://nita-shopi-backend-jo5u.onrender.com/api/v1/product/addProduct",
         formDataToSend,
         {
           withCredentials: true, // Send cookies with the request
