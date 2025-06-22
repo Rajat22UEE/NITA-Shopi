@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser"
 const app = express()
 
 app.use(cors({
-  origin: "http://localhost:5173"||'https://loquacious-daifuku-3a4f8e.netlify.app',
+  origin: "*",
   credentials: true
 }));
 
