@@ -12,7 +12,7 @@ const NewProduct = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://nita-shopi-backend-jo5u.onrender.com/api/v1/product/getOldProduct`, 
+        `http://localhost:8000/api/v1/product/getOldProduct`, 
         {
           method: "GET",
           credentials: "include",

@@ -151,7 +151,7 @@ const forgotPassword = async (req, res) => {
       expiresIn: "15m",
     });
 
-    const resetLink = `http://localhost:5173/resetPassword/${token}`;
+    const resetLink = `ttps://6857a0a85e51acda09207c2e--loquacious-daifuku-3a4f8e.netlify.app/resetPassword/${token}`;
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

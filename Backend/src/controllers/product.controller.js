@@ -417,7 +417,7 @@ const getAllProduct=async(req,res)=>{
 }
 
 const getOldProduct=async(req,res)=>{
-  const { page = 1, limit = 1 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
   const parsedLimit = parseInt(limit, 10);
   const pageSkip = (parseInt(page, 10) - 1) * parsedLimit;
   const sortStage = {};
@@ -461,7 +461,7 @@ const getOldProduct=async(req,res)=>{
 }
 
 const getNewProduct=async(req,res)=>{
-  const { page = 1, limit = 100 } = req.query;
+  const { page = 1, limit = 1000 } = req.query;
   const parsedLimit = parseInt(limit, 10);
   const pageSkip = (parseInt(page, 10) - 1) * parsedLimit;
   const sortStage = {};
