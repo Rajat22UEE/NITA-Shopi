@@ -8,7 +8,8 @@ export default function AddProduct() {
     description: "",
     quantity: 1,
     catagory: "",
-    productImage: null
+    productImage: null,
+    purchaseDate: ""
   });
 
   const handleChange = (e) => {
@@ -21,12 +22,12 @@ export default function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!formData.productImage) {
       alert("Please upload an image!");
       return;
     }
-  
+
     const formDataToSend = new FormData();
     formDataToSend.append("name", formData.name);
     formDataToSend.append("price", formData.price);
@@ -34,19 +35,17 @@ export default function AddProduct() {
     formDataToSend.append("quantity", formData.quantity);
     formDataToSend.append("catagory", formData.catagory);
     formDataToSend.append("productImage", formData.productImage);
-  
+    formDataToSend.append("purchaseDate", formData.purchaseDate);
+
     try {
       const response = await axios.post(
         "https://nita-shopi-backend-jo5u.onrender.com/api/v1/product/addProduct",
         formDataToSend,
         {
-          withCredentials: true, // Send cookies with the request
-          headers: {
-            // DO NOT manually set "Content-Type" for FormData
-          },
+          withCredentials: true,
         }
       );
-  
+
       if (response.status === 200) {
         alert("Product uploaded successfully!");
         setFormData({
@@ -56,6 +55,7 @@ export default function AddProduct() {
           quantity: 1,
           catagory: "",
           productImage: null,
+          purchaseDate: ""
         });
       }
     } catch (error) {
@@ -63,7 +63,6 @@ export default function AddProduct() {
       alert(error.response?.data?.message || "Product upload failed!");
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center bg-yellow-100 ">
@@ -90,9 +89,7 @@ export default function AddProduct() {
 
           <div className="flex flex-row gap-6 items-center">
             <div className="flex flex-col">
-              <label className="text-gray-700 font-medium mb-1">
-                Product Price:
-              </label>
+              <label className="text-gray-700 font-medium mb-1">Product Price:</label>
               <input
                 type="text"
                 name="price"
@@ -102,25 +99,25 @@ export default function AddProduct() {
                 className="border border-gray-300 rounded-lg px-3 py-2 w-64 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
               />
             </div>
+
             <div className="flex flex-col">
-              <label className="text-gray-700 font-medium mb-1">
-                Category:
-              </label>
-              <input
-                type="text"
+              <label className="text-gray-700 font-medium mb-1">Category:</label>
+              <select
                 name="catagory"
                 value={formData.catagory}
                 onChange={handleChange}
                 required
                 className="border border-gray-300 rounded-lg px-3 py-2 w-64 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-              />
+              >
+                <option value="">Select</option>
+                <option value="new">New</option>
+                <option value="old">Old</option>
+              </select>
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-gray-700 font-medium">
-              Product Description:
-            </label>
+            <label className="text-gray-700 font-medium">Product Description:</label>
             <textarea
               name="description"
               rows="5"
@@ -139,7 +136,7 @@ export default function AddProduct() {
               type="file"
               name="productImage"
               onChange={handleChange}
-               accept="image/*"
+              accept="image/*"
               className="block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
             />
           </div>
@@ -151,14 +148,15 @@ export default function AddProduct() {
                 type="number"
                 name="quantity"
                 onChange={handleChange}
-                className="w-[100px] h-[30px] text-blue-600 border-gray-300 focus:ring-blue-500"
                 min="1"
                 max="200"
                 step="1"
-                value={formData.quantity} // Bind the input value to state
+                value={formData.quantity}
+                className="w-[100px] h-[30px] text-blue-600 border-gray-300 focus:ring-blue-500"
               />
             </div>
           </div>
+
           <div className="flex flex-col my-6">
             <label className="text-gray-700 font-medium">Purchase Date</label>
             <input
@@ -169,6 +167,7 @@ export default function AddProduct() {
               className="border border-gray-300 rounded p-2"
             />
           </div>
+
           <div className="flex items-center justify-center">
             <button
               type="submit"
