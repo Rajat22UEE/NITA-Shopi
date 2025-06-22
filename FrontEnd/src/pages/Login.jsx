@@ -33,7 +33,7 @@ function App() {
           password: formData.password,
         },
         {
-          withCredentials: true, // Correct way to include cookies
+          withCredentials: true,
         }
       );
 
@@ -41,7 +41,7 @@ function App() {
         console.log("Login Successful:", data);
         alert("User Logged in successfully!");
         window.location.reload();
-        navigate("/Home"); // Navigate to the Home page
+        navigate("/Home"); 
       }
     } catch (error) {
       console.error(

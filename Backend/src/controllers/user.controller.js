@@ -94,7 +94,10 @@ res.cookie("accessToken", token, {
   }
 };
 
-const logoutUser  = async (req, res) => {
+
+
+
+const logoutUser = async (req, res) => {
   try {
     const token =
       req.cookies?.accessToken ||
@@ -104,35 +107,36 @@ const logoutUser  = async (req, res) => {
       return res.status(400).json({ message: "No access token provided" });
     }
 
-   console.log(token)
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); 
+      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     } catch (err) {
-      return res.status(401).json({ message: "Invalid access token" });
+      return res.status(401).json({ message: "Invalid or expired token" });
     }
 
     const user = await User.findById(decoded._id);
     if (!user) {
-      return res.status(404).json({ message: "User  not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Clear the cookie
+    // Clear the access token cookie
     res.clearCookie("accessToken", {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production", // true in production
       sameSite: "Lax",
     });
 
-    // Optionally, you can also remove the token from the user record if you store it
+    // Optional: Remove stored token from DB if applicable
     // await User.findByIdAndUpdate(decoded._id, { $unset: { accessToken: "" } });
 
     return res.status(200).json({ message: "Logout successful" });
   } catch (err) {
-    console.error(err);
+    console.error("Logout Error:", err.message);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 
 const forgotPassword = async (req, res) => {
   try {

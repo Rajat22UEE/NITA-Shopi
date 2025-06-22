@@ -6,10 +6,10 @@ export default function Footer() {
       <div className="flex flex-col items-center py-8">
         <div className="flex flex-col md:flex-row justify-around w-full max-w-screen-lg">
           <section className="flex flex-col items-center mb-8 md:mb-0">
-            <h3 className="font-bold text-2xl text-center">Kuch-Nahi</h3>
+            <h3 className="font-bold text-2xl text-center">CampusConnect</h3>
             <br />
             <img
-              src="https://tse2.mm.bing.net/th/id/OIP.ynAJPcTkuj1gHvWbhQFZ4QHaMV?w=600&h=999&rs=1&pid=ImgDetMain"
+              src="https://th.bing.com/th/id/OIP.mzHNJFEc50g4crnvhcFU3QHaCc?w=500&h=165&rs=1&pid=ImgDetMain&cb=idpwebpc2"
               alt="Error"
               className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-4 border-green-500 transform transition-transform duration-300 hover:scale-110"
             />
@@ -47,7 +47,7 @@ export default function Footer() {
               <li className="mb-2">Location: NIT Agartala, Jirania Agartala</li>
               <li className="mb-2">Pin No: 799122</li>
               <li className="mb-2">Phone Number: 9382xxxxxxx</li>
-              <li className="mb-2">E-mail: sudip@6969gmail.com</li>
+              <li className="mb-2">E-mail: sudipk166@gmail.com</li>
             </ul>
           </section>
         </div>

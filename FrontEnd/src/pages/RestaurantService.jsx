@@ -70,7 +70,7 @@ const RestaurantService = () => {
   ];
 
   const [category, setCategory] = useState(1);
-  const [value, setValue] = useState(shops); 
+  const [value, setValue] = useState(shops);
 
   function handleClickAll() {
     setCategory(1);
@@ -96,90 +96,120 @@ const RestaurantService = () => {
   }
 
   return (
-    <div className="w-screen m-0 p-0 bg-gradient-to-b from-yellow-200 to-yellow-00">
-      <div className="flex flex-row w-full h-full">
-       
-        <div className="w-full flex flex-col gap-11 mt-[100px] justify-start px-2">
-          <div
-            className="text-4xl font-extrabold overflow-visible text-green-800"
-            style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)" }}
+    <div className="w-full m-0 p-0 bg-gradient-to-b from-yellow-50 to-yellow-100">
+      {/* Header - Enhanced with shadows and gradients */}
+      <div className="flex flex-col-reverse md:flex-row w-full h-full px-4 md:px-10 py-10 gap-8 bg-gradient-to-r from-amber-100 to-yellow-50 shadow-md">
+        <div className="w-full md:w-1/2 flex flex-col gap-6 justify-center">
+          <h1 
+            className="text-3xl md:text-5xl font-extrabold text-green-800 leading-tight"
+            style={{ 
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
+              background: "linear-gradient(to right, #1a5e1a, #2d7a2d)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent"
+            }}
           >
             Discover diverse cuisines and create memories with loved ones.
-          </div>
-          <div className="text-xl font-extralight text-slate-600">
-            Explore a variety of mouthwatering cuisines from around the world.
-            Whether you're in the mood for a quick snack or a full-course meal,
-            discover the best restaurants offering diverse dishes. Create
-            unforgettable memories with loved ones while enjoying exceptional
-            dining experiences in your area.
+          </h1>
+          <p className="text-md md:text-lg text-slate-700 leading-relaxed bg-white/80 p-4 rounded-lg shadow-sm">
+            Explore a variety of mouthwatering cuisines from around the world. Whether you're in the mood for a quick snack or a full-course meal, discover the best restaurants offering diverse dishes. Create unforgettable memories with loved ones while enjoying exceptional dining experiences in your area.
+          </p>
+        </div>
+        <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+          <div className="relative">
+            <img
+              src="https://cdn.dribbble.com/users/6985884/screenshots/16045804/media/6d2b84328c7c6ea9f3aa18bd2ade1736.gif"
+              className="rounded-s-full w-full max-w-[550px] h-auto object-cover shadow-xl border-4 border-white transform rotate-1"
+              alt="Food variety"
+            />
+            <div className="absolute -bottom-4 -right-4 bg-amber-500 text-white px-4 py-2 rounded-full shadow-lg font-bold">
+              Try Something New!
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Image */}
-        <div className="flex justify-end w-full">
-          <img
-            src="https://cdn.dribbble.com/users/6985884/screenshots/16045804/media/6d2b84328c7c6ea9f3aa18bd2ade1736.gif"
-            className="rounded-s-full max-w-full h-[575px]"
-            alt=""
-          />
+      {/* Cuisine Types - Enhanced card styling */}
+      <div className="py-8 bg-gradient-to-b from-yellow-100 to-amber-50">
+        <h2 className="text-center text-3xl font-bold p-4 text-green-800 underline decoration-wavy decoration-amber-500">
+          Available Variety
+        </h2>
+        <div className="flex flex-wrap justify-center gap-6 px-4 py-6">
+          {type.map((value, index) => (
+            <RestaurantTypeCard
+              key={index}
+              image={value.image}
+              title={value.title}
+              description={value.description}
+            />
+          ))}
         </div>
       </div>
-      <br />
-      <h2 className="text-center text-3xl font-bold p-4 underline">
-        Available Variety
-      </h2>
-      <div className="flex flex-row justify-around">
-        {type.map((value, index) => (
-          <RestaurantTypeCard
-            key={index} // Add a unique key
-            image={value.image}
-            title={value.title}
-            description={value.description}
-          />
-        ))}
-      </div>
-      <h2 className="text-center text-3xl font-bold p-4 ">
-        When You Are Hungry?
-      </h2>
 
-      <div className="flex flex-row justify-center gap-4">
-        <button
-         className={`${category==1?"bg-green-800":"bg-green-500"} text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg`}
-          onClick={handleClickAll}
-        >
-          All
-        </button>
-        <button
-           className={`${category==2?"bg-green-800":"bg-green-500"} text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg`}
-          onClick={handleClickRestaurants}
-        >
-          Restaurants
-        </button>
-        <button
-          className={`${category==3?"bg-green-800":"bg-green-500"} text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg`}
-          onClick={handleClickTiffin}
-        >
-          Tiffin
-        </button>
-        <button
-          className={`${category===4?"bg-green-800":"bg-green-500"} text-white font-semibold py-2 px-6 rounded-xl hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg`}
-          onClick={handleClickMisc}
-        >
-          Miscellaneous
-        </button>
+      {/* Category Filters - Enhanced button styling */}
+      <div className="py-6 bg-gradient-to-t from-amber-100 to-yellow-50 shadow-inner">
+        <h2 className="text-center text-3xl font-bold p-4 text-green-800">
+          When You Are Hungry?
+        </h2>
+        <div className="flex flex-wrap justify-center gap-4 px-4 py-2">
+          <button
+            className={`${category === 1 ? "bg-green-800 shadow-lg scale-105" : "bg-green-600"} text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105`}
+            onClick={handleClickAll}
+          >
+            All
+          </button>
+          <button
+            className={`${category === 2 ? "bg-green-800 shadow-lg scale-105" : "bg-green-600"} text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105`}
+            onClick={handleClickRestaurants}
+          >
+            Restaurants
+          </button>
+          <button
+            className={`${category === 3 ? "bg-green-800 shadow-lg scale-105" : "bg-green-600"} text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105`}
+            onClick={handleClickTiffin}
+          >
+            Tiffin
+          </button>
+          <button
+            className={`${category === 4 ? "bg-green-800 shadow-lg scale-105" : "bg-green-600"} text-white font-semibold py-3 px-8 rounded-xl hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105`}
+            onClick={handleClickMisc}
+          >
+            Miscellaneous
+          </button>
+        </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-4 p-4">
+
+      {/* Restaurant List - Enhanced background */}
+      <div className="flex flex-wrap justify-center gap-6 p-6 bg-gradient-to-b from-amber-50 to-yellow-100">
         {value.map((e, index) => (
           <RestaurantsCard
-            key={index} 
+            key={index}
             image={e.image}
             title={e.title}
             description={e.description}
             phonenumber={e.phonenumber}
-            address={e.location} 
+            address={e.location}
             homedelivery={e.homedelivery}
           />
         ))}
+      </div>
+
+      {/* Register Section - Enhanced styling */}
+      <div className="bg-gradient-to-r from-green-700 to-emerald-800 px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6 mt-8 shadow-lg">
+        <div className="text-center md:text-left">
+          <h2 className="text-2xl md:text-3xl font-bold text-yellow-200">
+            Want to register your restaurant?
+          </h2>
+          <p className="text-green-100 mt-2">
+            Grow your business by reaching out to thousands of food lovers!
+          </p>
+        </div>
+        <a
+          href="/register-restaurant"
+          className="mt-4 md:mt-0 bg-amber-400 hover:bg-amber-500 text-green-900 font-bold px-8 py-3 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
+        >
+          Register Now
+        </a>
       </div>
     </div>
   );
